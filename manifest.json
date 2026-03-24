@@ -1,0 +1,18 @@
+{
+  "name": "MKR Ledger",
+  "short_name": "MKR Ledger",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#2563eb",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Productivity-icon.svg/512px-Productivity-icon.svg.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
