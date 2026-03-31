@@ -32,10 +32,12 @@
         </div>
 
         <div class="card receipt-card" id="capture-area">
-            <div class="receipt-header">
+                        <div class="receipt-header">
                 <h3>Daily Bazar List</h3>
-                <p id="receipt-date"></p>
+                <!-- Added contenteditable for manual entry -->
+                <p id="receipt-date" contenteditable="true" style="outline: none; cursor: text;">Tap to enter date...</p>
             </div>
+
             
             <ul id="item-list" class="receipt-list"></ul>
             
