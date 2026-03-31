@@ -19,14 +19,19 @@
 
     <div class="screen active">
         
-        <div class="card form-card">
-            <!-- New Manual Date Section -->
-            <div class="form-group" style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px dashed var(--border);">
+                <div class="card form-card">
+            <div class="form-group">
+                <!-- NEW: Manual Date Input -->
+                <input type="date" id="manual-date" onchange="mkr.updateDate()">
+                
+                <input type="text" id="item-name" placeholder="e.g., Rice (5kg), Fish...">
                 <div class="price-row">
-                    <input type="date" id="manual-date-input">
-                    <button class="btn bg-primary" onclick="mkr.updateDate()">Set Date</button>
+                    <input type="number" id="item-price" placeholder="Price (৳)" inputmode="decimal">
+                    <button class="btn" onclick="mkr.addItem()">+ Add</button>
                 </div>
             </div>
+                </div>
+        
 
             <!-- Item Input Section -->
             <div class="form-group">
