@@ -2,13 +2,10 @@ class MkrLedger {
     constructor() {
         this.items = [];
         this.loadData();
-        this.setDate();
+        // this.setDate(); <-- Removed so it doesn't auto-fill the date
     }
 
-    setDate() {
-        const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-        document.getElementById('receipt-date').innerText = new Date().toLocaleDateString('en-US', options);
-    }
+    // The setDate() method has been deleted
 
     saveData() {
         localStorage.setItem('mkr_bazar_list', JSON.stringify(this.items));
@@ -21,6 +18,9 @@ class MkrLedger {
         }
         this.renderList();
     }
+
+    // ... Keep the rest of your methods exactly the same (addItem, deleteItem, etc.)
+
 
     addItem() {
         const nameInput = document.getElementById('item-name');
