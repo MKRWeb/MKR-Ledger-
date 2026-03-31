@@ -2,6 +2,15 @@ class MkrLedger {
     constructor() {
         this.items = [];
         this.loadData();
+        this.setInitialDate();
+    }
+
+    setInitialDate() {
+        // This pre-fills today's date so the box isn't empty, 
+        // but because it's an input box, the user can manually delete/change it!
+        const dateInput = document.getElementById('receipt-date');
+        const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+        dateInput.value = new Date().toLocaleDateString('en-US', options);
     }
 
     saveData() {
