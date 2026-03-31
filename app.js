@@ -2,10 +2,7 @@ class MkrLedger {
     constructor() {
         this.items = [];
         this.loadData();
-        // this.setDate(); <-- Removed so it doesn't auto-fill the date
     }
-
-    // The setDate() method has been deleted
 
     saveData() {
         localStorage.setItem('mkr_bazar_list', JSON.stringify(this.items));
@@ -18,9 +15,6 @@ class MkrLedger {
         }
         this.renderList();
     }
-
-    // ... Keep the rest of your methods exactly the same (addItem, deleteItem, etc.)
-
 
     addItem() {
         const nameInput = document.getElementById('item-name');
@@ -98,7 +92,6 @@ class MkrLedger {
         });
     }
 
-    // --- Upgraded Share Logic with Mobile Fallback ---
     async shareList() {
         if (this.items.length === 0) { alert("List is empty!"); return; }
 
@@ -111,11 +104,9 @@ class MkrLedger {
             const canvas = await html2canvas(captureArea, { scale: 2, backgroundColor: '#fffdf8', useCORS: true });
             const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
             
-            // Try to create the File object for native sharing
             canvas.toBlob(async (blob) => {
                 const file = new File([blob], `MKR_Ledger_${Date.now()}.jpg`, { type: 'image/jpeg' });
 
-                // Check if browser allows sharing files natively
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     try {
                         await navigator.share({
@@ -128,7 +119,6 @@ class MkrLedger {
                         this.showFallbackModal(dataUrl);
                     }
                 } else {
-                    // Browser doesn't support file sharing, show fallback immediately
                     this.showFallbackModal(dataUrl);
                 }
                 shareBtn.innerHTML = originalText;
@@ -157,4 +147,3 @@ class MkrLedger {
 window.onload = () => {
     window.mkr = new MkrLedger();
 };
-          
