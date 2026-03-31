@@ -1,25 +1,34 @@
 class MkrLedger {
     constructor() {
         this.items = [];
+        this.initDateInput(); // NEW: Setup the input field
         this.loadData();
-        this.setInitialDate();
+        this.updateDate();    // NEW: Set initial date on the receipt
     }
 
-    setInitialDate() {
-        // Sets today's date automatically on load, just in case you forget to hit 'Set Date'
-        const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-        document.getElementById('receipt-date').innerText = new Date().toLocaleDateString('en-US', options);
+    // NEW: Sets today's date as the default value in the input field
+    initDateInput() {
+        const dateInput = document.getElementById('manual-date');
+        const today = new Date();
+        // Format to YYYY-MM-DD for the HTML date input
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const dd = String(today.getDate()).padStart(2, '0');
+        dateInput.value = `${yyyy}-${mm}-${dd}`;
     }
 
+    // UPDATED: Reads the date from the input field instead of auto-generating
     updateDate() {
-        // Grabs the date from the new input field and stamps it on the receipt
-        const dateVal = document.getElementById('manual-date-input').value;
-        if (dateVal) {
-            const d = new Date(dateVal);
-            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-            document.getElementById('receipt-date').innerText = d.toLocaleDateString('en-US', options);
+        const dateValue = document.getElementById('manual-date').value;
+        const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+        
+        if (dateValue) {
+            // Split to avoid timezone offset issues (shifting to previous day)
+            const [year, month, day] = dateValue.split('-');
+            const dateObj = new Date(year, month - 1, day);
+            document.getElementById('receipt-date').innerText = dateObj.toLocaleDateString('en-US', options);
         } else {
-            alert("Please select a date from the calendar first!");
+            document.getElementById('receipt-date').innerText = "No date selected";
         }
     }
 
@@ -162,6 +171,8 @@ class MkrLedger {
     }
 }
 
+// Global initialization
 window.onload = () => {
     window.mkr = new MkrLedger();
 };
+                    
