@@ -1,29 +1,31 @@
 class MkrLedger {
     constructor() {
         this.items = [];
-        this.initDateInput(); // NEW: Setup the input field
+        this.initDateInput();
         this.loadData();
-        this.updateDate();    // NEW: Set initial date on the receipt
+        this.updateDate();
     }
 
-    // NEW: Sets today's date as the default value in the input field
     initDateInput() {
         const dateInput = document.getElementById('manual-date');
+        // Failsafe: if HTML hasn't updated yet, stop here to prevent crash
+        if (!dateInput) return; 
+        
         const today = new Date();
-        // Format to YYYY-MM-DD for the HTML date input
         const yyyy = today.getFullYear();
         const mm = String(today.getMonth() + 1).padStart(2, '0');
         const dd = String(today.getDate()).padStart(2, '0');
         dateInput.value = `${yyyy}-${mm}-${dd}`;
     }
 
-    // UPDATED: Reads the date from the input field instead of auto-generating
     updateDate() {
-        const dateValue = document.getElementById('manual-date').value;
+        const dateInput = document.getElementById('manual-date');
+        if (!dateInput) return;
+
+        const dateValue = dateInput.value;
         const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
         
         if (dateValue) {
-            // Split to avoid timezone offset issues (shifting to previous day)
             const [year, month, day] = dateValue.split('-');
             const dateObj = new Date(year, month - 1, day);
             document.getElementById('receipt-date').innerText = dateObj.toLocaleDateString('en-US', options);
@@ -175,4 +177,4 @@ class MkrLedger {
 window.onload = () => {
     window.mkr = new MkrLedger();
 };
-                    
+        
