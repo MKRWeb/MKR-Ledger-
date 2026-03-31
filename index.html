@@ -12,7 +12,6 @@
     }
 </script>
     
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,12 +31,10 @@
         </div>
 
         <div class="card receipt-card" id="capture-area">
-                        <div class="receipt-header">
+            <div class="receipt-header">
                 <h3>Daily Bazar List</h3>
-                <!-- Added contenteditable for manual entry -->
-                <p id="receipt-date" contenteditable="true" style="outline: none; cursor: text;">Tap to enter date...</p>
+                <input type="date" id="receipt-date" style="border: none; background: transparent; text-align: center; width: 100%; color: var(--text-muted); font-size: 14px; outline: none; cursor: pointer;">
             </div>
-
             
             <ul id="item-list" class="receipt-list"></ul>
             
@@ -70,4 +67,3 @@
     <script src="app.js"></script>
 </body>
 </html>
-
