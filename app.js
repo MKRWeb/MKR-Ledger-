@@ -1,37 +1,13 @@
 class MkrLedger {
     constructor() {
         this.items = [];
-        this.initDateInput();
         this.loadData();
-        this.updateDate();
+        this.setDate();
     }
 
-    initDateInput() {
-        const dateInput = document.getElementById('manual-date');
-        // Failsafe: if HTML hasn't updated yet, stop here to prevent crash
-        if (!dateInput) return; 
-        
-        const today = new Date();
-        const yyyy = today.getFullYear();
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const dd = String(today.getDate()).padStart(2, '0');
-        dateInput.value = `${yyyy}-${mm}-${dd}`;
-    }
-
-    updateDate() {
-        const dateInput = document.getElementById('manual-date');
-        if (!dateInput) return;
-
-        const dateValue = dateInput.value;
+    setDate() {
         const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-        
-        if (dateValue) {
-            const [year, month, day] = dateValue.split('-');
-            const dateObj = new Date(year, month - 1, day);
-            document.getElementById('receipt-date').innerText = dateObj.toLocaleDateString('en-US', options);
-        } else {
-            document.getElementById('receipt-date').innerText = "No date selected";
-        }
+        document.getElementById('receipt-date').innerText = new Date().toLocaleDateString('en-US', options);
     }
 
     saveData() {
@@ -80,6 +56,7 @@ class MkrLedger {
             this.renderList();
         }
     }
+    
 
     renderList() {
         const listEl = document.getElementById('item-list');
@@ -122,6 +99,7 @@ class MkrLedger {
         });
     }
 
+    // --- Upgraded Share Logic with Mobile Fallback ---
     async shareList() {
         if (this.items.length === 0) { alert("List is empty!"); return; }
 
@@ -134,9 +112,11 @@ class MkrLedger {
             const canvas = await html2canvas(captureArea, { scale: 2, backgroundColor: '#fffdf8', useCORS: true });
             const dataUrl = canvas.toDataURL('image/jpeg', 0.95);
             
+            // Try to create the File object for native sharing
             canvas.toBlob(async (blob) => {
                 const file = new File([blob], `MKR_Ledger_${Date.now()}.jpg`, { type: 'image/jpeg' });
 
+                // Check if browser allows sharing files natively
                 if (navigator.canShare && navigator.canShare({ files: [file] })) {
                     try {
                         await navigator.share({
@@ -149,6 +129,7 @@ class MkrLedger {
                         this.showFallbackModal(dataUrl);
                     }
                 } else {
+                    // Browser doesn't support file sharing, show fallback immediately
                     this.showFallbackModal(dataUrl);
                 }
                 shareBtn.innerHTML = originalText;
@@ -177,4 +158,4 @@ class MkrLedger {
 window.onload = () => {
     window.mkr = new MkrLedger();
 };
-        
+
