@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#2563eb">
     <script>
         if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
+            navigator.serviceWorker.register('sw.js');
         }
     </script>
     <link rel="stylesheet" href="style.css">
@@ -19,22 +19,11 @@
 
     <div class="screen active">
         
-                <div class="card form-card">
+        <div class="card form-card">
             <div class="form-group">
-                <!-- NEW: Manual Date Input -->
+                <!-- Manual Date Input -->
                 <input type="date" id="manual-date" onchange="mkr.updateDate()">
                 
-                <input type="text" id="item-name" placeholder="e.g., Rice (5kg), Fish...">
-                <div class="price-row">
-                    <input type="number" id="item-price" placeholder="Price (৳)" inputmode="decimal">
-                    <button class="btn" onclick="mkr.addItem()">+ Add</button>
-                </div>
-            </div>
-                </div>
-        
-
-            <!-- Item Input Section -->
-            <div class="form-group">
                 <input type="text" id="item-name" placeholder="e.g., Rice (5kg), Fish...">
                 <div class="price-row">
                     <input type="number" id="item-price" placeholder="Price (৳)" inputmode="decimal">
@@ -46,8 +35,7 @@
         <div class="card receipt-card" id="capture-area">
             <div class="receipt-header">
                 <h3>Daily Bazar List</h3>
-                <!-- This is just plain text now, so the image generator loves it -->
-                <p id="receipt-date" style="margin: 0; color: var(--text-muted); font-size: 14px;"></p>
+                <p id="receipt-date"></p>
             </div>
             
             <ul id="item-list" class="receipt-list"></ul>
