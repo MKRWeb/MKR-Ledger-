@@ -6,11 +6,21 @@ class MkrLedger {
     }
 
     setInitialDate() {
-        // This pre-fills today's date so the box isn't empty, 
-        // but because it's an input box, the user can manually delete/change it!
-        const dateInput = document.getElementById('receipt-date');
+        // Sets today's date automatically on load, just in case you forget to hit 'Set Date'
         const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
-        dateInput.value = new Date().toLocaleDateString('en-US', options);
+        document.getElementById('receipt-date').innerText = new Date().toLocaleDateString('en-US', options);
+    }
+
+    updateDate() {
+        // Grabs the date from the new input field and stamps it on the receipt
+        const dateVal = document.getElementById('manual-date-input').value;
+        if (dateVal) {
+            const d = new Date(dateVal);
+            const options = { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric' };
+            document.getElementById('receipt-date').innerText = d.toLocaleDateString('en-US', options);
+        } else {
+            alert("Please select a date from the calendar first!");
+        }
     }
 
     saveData() {
@@ -152,7 +162,6 @@ class MkrLedger {
     }
 }
 
-// Global initialization
 window.onload = () => {
     window.mkr = new MkrLedger();
 };
