@@ -85,19 +85,27 @@ input:focus { border-color: var(--primary); }
 .receipt-header { text-align: center; margin-bottom: 20px; }
 .receipt-header h3 { margin: 0 0 4px 0; font-size: 22px; text-transform: uppercase; letter-spacing: 1px; }
 
-/* Styles for manual date entry */
-.manual-date {
-    border: none;
-    background: transparent;
+/* Styles for manual text date entry */
+.manual-date-input {
+    display: block;
+    margin: 5px auto 0;
     text-align: center;
-    width: 100%;
-    color: var(--text-muted);
+    border: 1px dashed #ccc;
+    background: transparent;
+    padding: 6px;
+    border-radius: 6px;
     font-size: 14px;
+    color: var(--text-muted);
+    width: 80%;
+    max-width: 250px;
     outline: none;
-    cursor: pointer;
-    padding: 0;
+    transition: 0.2s;
 }
-.manual-date:focus { border: none; }
+.manual-date-input:focus {
+    border-color: var(--primary);
+    background: #fff;
+    color: var(--text-main);
+}
 
 .receipt-list { list-style: none; padding: 0; margin: 0; }
 .receipt-list li {
